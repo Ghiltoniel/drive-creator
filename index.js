@@ -107,8 +107,6 @@ function createFolders(auth) {
   listFiles(options.rootParentName, auth, function(files){
 	  if(options.rootParentName){
 		  for(var i in files){
-			  console.log(i);
-			  console.log(files[i].title);
 			  if(files[i].title == options.rootParentName){
 				  var parentId = files[i].id;
 			  }
