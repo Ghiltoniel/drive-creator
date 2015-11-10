@@ -158,7 +158,6 @@ function createFolders(auth) {
 }
 
 function listFiles(query, auth, callback) {
-	console.log(query);
   service.files.list({
     auth: auth,
 	q: 'title = \'' + query + '\'',
