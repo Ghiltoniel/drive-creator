@@ -131,8 +131,32 @@ function createFolders(auth) {
 			  return;
 			}
 			else{
-				console.log('Created root folder named : ' + options.rootName);
+				console.log(('Created root folder named : ' + options.rootName).green);
 				var id = response.id;
+				
+				if(options.shareWith){
+					for(var i in options.shareWith){
+						var email = options.shareWith[i];
+						service.permissions.insert({
+						auth: auth,
+						fileId: id,
+						resource: {
+							role: 'writer',
+							type: 'user',
+							value: email
+						}
+					  }, function(err, response){
+						   if (err) {
+							  console.log('The API returned an error: ' + err);
+							  return;
+							}
+							else{
+								console.log(('Shared folder with : ' + email).green);
+							}
+					  });
+					}
+				}
+				
 				for(var i in options.subFolders){
 					var name = options.subFolders[i];
 					service.files.insert({
@@ -144,11 +168,11 @@ function createFolders(auth) {
 					}
 				  }, function(err, response){
 					   if (err) {
-						  console.log('The API returned an error: ' + err);
+						  console.log(('The API returned an error: ' + err).green);
 						  return;
 						}
 						else{
-							console.log('Created subfolder named : ' + name);
+							console.log(('Created subfolder named : ' + name).green);
 						}
 				  });
 				}
